@@ -71,6 +71,7 @@ function sendEmailVerification() {
   });
 }
 
+// this doesn't currently work
 function login() {
 // retrieve email and password input
   var email = document.getElementById('email_input').value;
