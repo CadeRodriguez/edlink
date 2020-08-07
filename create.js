@@ -44,8 +44,9 @@ var firebaseConfig = {
     // saves information by calling saveWebElements
     console.log("calling saveWebElements");
        saveWebElements(post_text, hyperlink);
-    console.log(uid);
-      //Deletes whats in the input after user submits
+    //testing
+    bringBack(doc);
+    //Deletes whats in the input after user submits
       link_link_input.value = '';
       link_title_input.value = '';
 
@@ -70,6 +71,8 @@ var firebaseConfig = {
   	document.getElementById('phone-preview').appendChild(breakline);
 
   	//drag and drop
+
+// setting docId variables
 
 
   }
@@ -136,22 +139,16 @@ var firebaseConfig = {
     }, { offset: Number.NEGATIVE_INFINITY }).element
   }
 // END OF CADE'S CODE ------------------------------------------>
-// get userId => this is what we save web info under
-var user = firebase.auth().currentUser;
-var name, email, photoUrl, uid, emailVerified;
 
-if (user != null) {
-  uid = user.uid;
-}
-
-uid = "things";
 
 // saveItemToDatabase function
 function saveWebElements(post_text,hyperlink){
   // saving the inputted information in new documents (should be titled after userId)
-    doc = db.collection("users").add({
+  var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).set({
         title: post_text,
         link: hyperlink,
+        gradient: 
     })
   .then(function(){
     console.log("document successfully written");
@@ -161,34 +158,22 @@ function saveWebElements(post_text,hyperlink){
   });
 }
 
-// // changeProfile function
-// function changeProfile(doc) {
-// // NAME CHANGE CODE
-//     // changes the html of ANDREW CARNEGIE to name_change so it shows up
-//         document.getElementById("name_default").innerHTML = doc.data().name
-//     // resetting the forms
-//         document.getElementById("name_input").value = "";
-// // IMAGE CHANGE CODE
-//     // replace image src with the link user submitted
-//         document.getElementById("pfp").src = doc.data().pfp;
-//     // resetting the forms
-//         document.getElementById("url_input").value = "";
-// // BIO CHANGE CODE
-//     // changes the html of the original bio to new_bio so it shows
-//         document.getElementById("bio_default").innerHTML = doc.data().bio;
-//     // resetting the forms
-//         document.getElementById("bio_input").value= "";
-// };
-//
-// // creating loadProfile function that brings back the post info and calls createPost
-// function loadProfile() {
-//     db.collection("users").get().then(function(querySnapshot) {
-//         querySnapshot.forEach(function(doc){
-//             changeProfile(doc);
-//         });
-//     });
-// };
-// // calling the function above when the page comes back
-// $(document).ready(function(){
-//     loadProfile()
-// });
+
+// function to load the user's webpage
+  function loadPage(){
+    db.collection("users").get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        // setting doc data for link as hyperlink
+          var hyperlink = doc.data().link;
+        // setting doc data for title as post_text
+      	var post_text = doc.data().title;
+        addPost(post_text, hyperlink);
+      });
+    });
+  };
+
+
+// calling the function above when the page comes back
+$(document).ready(function(){
+    loadPage()
+});

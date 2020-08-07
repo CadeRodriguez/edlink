@@ -34,7 +34,7 @@ $("#form1").submit(function(e) {
 $("#login").submit(function(e) {
   e.preventDefault();
     console.log("button click!");
-    // call signIn < DOESN'T CURRENTLY WORK
+    // call login < DOESN'T CURRENTLY WORK
     login();
 })
 
@@ -45,26 +45,21 @@ function signUp() {
     var email = document.getElementById("newEmailInput").value;
   // what the user inputs is saved in a variable: password_input
     var password = document.getElementById("newPassInput").value;
-  // save user info to database
-    function saveUserToDatabase(email,password){
-      doc = db.collection("users").add({
-        email: email,
-        password: password,
-      })
-    }
-// print to console that the user info is actually saved so we know it works
-  console.log("infoSaved");
-  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-    // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+  firebase.auth().createUserWithEmailAndPassword(email, password).then(cred => {
+  // creates user doc with id that matches userId
+    return db.collection("users").doc(cred.user.uid).set({
     });
+  });
   alert("signed up!");
   console.log("signedUp!");
 }
 
 // function to send email verification to prevent bots or something idk this is completely optional
 function sendEmailVerification() {
+  // what the user inputs is saved in a variable: email_input
+    var email = document.getElementById("newEmailInput").value;
+  // what the user inputs is saved in a variable: password_input
+    var password = document.getElementById("newPassInput").value;
   firebase.auth().currentUser.sendEmailVerification().then(function() {
     // email verification sent
     alert("email verification sent!");
