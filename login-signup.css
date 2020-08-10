@@ -2,6 +2,71 @@ html, body{
     height: 100%;
     background-color: #fffcf7;
 }
+
+/* banner */
+.banner{
+    background-color:white;
+    border-radius:10px;
+    vertical-align:middle;
+    margin-right:2%;
+    color:#456A8E;
+    font-size: 18px;
+    font-family: 'Montserrat', serif; 
+    margin-bottom: 5%;
+    margin-top:2%;
+    margin-left:2%;
+    z-index: 2;
+    position: relative;
+}
+
+.c{
+    padding-left:2%;
+    padding-bottom:2%;
+    padding-right:2%;
+    padding-top:0%;
+    vertical-align:middle;
+    font-family: 'Montserrat', serif;
+}
+.s{
+    
+    margin-top:-5%;
+    font-family: 'Montserrat', serif;
+    
+}
+.si{
+    padding-left:2%;
+    padding-bottom:2%;
+    padding-right:2%;
+    font-family: 'Montserrat', serif;
+}
+
+.logo{
+    height:5%;
+    width:10%;
+    padding-left: 3%;
+    vertical-align: middle;
+}
+
+.f{
+    padding-left:44%;
+    padding-bottom:2%;
+    font-family: 'Montserrat', serif;
+
+}
+
+#r{
+    background-color:#F76B5C;
+    border-radius: 10px;
+    height:1%;
+    width:8%;
+    font-size:8px;
+    font-family: 'Montserrat', serif;
+    color:white;
+    border-color:white;
+    box-shadow: none;
+}
+/* end of banner */
+
 .login-c {
     background-color: transparent;
     height:100%;
@@ -80,7 +145,7 @@ form {
 .button-row {
     margin: 0% 7.5% 0% 7.5%;
 }
-button {
+button { /* cade changed button to .loginbutton so it wouldn't affect all buttons */
     border: none;
     border-radius: 7.5px;
     height: 31px;

@@ -58,7 +58,7 @@ body{
 	height:1%;
 	width:8%;
 	font-size:8px;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Montserrat', serif;
 	color:white;
 	border-color:white;
 	box-shadow: none;
@@ -90,7 +90,7 @@ body{
 	border-radius: 10px;
 	height:5%;
 	width:25%;
-	font-family: 'Montserrat', sans-serif; 
+	font-family: 'Montserrat', serif; 
 	color:white;
 	border-color:white;
 
