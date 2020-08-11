@@ -15,17 +15,6 @@ var firebaseConfig = {
   var db = firebase.firestore();
   var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-  function sLinks(){ //shows links and hides design
-      document.getElementById('linksPart').style.display='block';
-      document.getElementById('designPart').style.display='none';
-  }
-
-  function sDesign(){ //shows design and hides links
-      document.getElementById('linksPart').style.display='none';
-      document.getElementById('designPart').style.display='block';
-  }
-
-
   $('#form1').submit(function(e) {
   	e.preventDefault(); //keeps page from refreshing
       console.log('posted!');
