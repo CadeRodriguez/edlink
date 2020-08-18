@@ -22,6 +22,15 @@ nav{
 .navbar-toggler{
 	border: none;
 }
+/* DELETE IS HERE */
+	.delete {
+		padding: 0px;
+		margin-top: 2px;
+		margin-bottom: 0;
+		color: black;
+		font-weight: bolder;
+		cursor: pointer;
+	}
 
 @media only screen and (min-width: 1307px) {
 	.nav-link{
@@ -140,7 +149,7 @@ nav{
 		padding-top: 10px;
 		padding-bottom: 10px;
 		display: block;
-		margin:auto; 
+		margin:auto;
 		border-radius: 10px;
 		text-decoration: none;
 	}
@@ -152,14 +161,14 @@ nav{
 		width: 200px;
 	}
 	#pfp-btn{
-		margin-top: 
+		margin-top:
 	}
 	#grad1, #grad2, #grad3, #grad4, #grad5{
 		position: inline;
 		border-radius: 10px;
 		width: 120px;
 		height: 55px;
-		
+
 	}
 	#grad1:hover, #grad2:hover, #grad3:hover, #grad4:hover, #grad5:hover{
 		cursor: pointer;
@@ -186,7 +195,7 @@ nav{
 		font-size: 1em;
 		margin-top: 5px;
 		margin-bottom: 15px;
-	} 
+	}
 	#create-window{
 		width: 85vw;
 		height: 80vh;
@@ -297,7 +306,7 @@ nav{
 		padding-top: 10px;
 		padding-bottom: 10px;
 		display: block;
-		margin:auto; 
+		margin:auto;
 		border-radius: 10px;
 		text-decoration: none;
 	}
@@ -309,14 +318,14 @@ nav{
 		width: 200px;
 	}
 	#pfp-btn{
-		margin-top: 
+		margin-top:
 	}
 	#grad1, #grad2, #grad3, #grad4, #grad5{
 		position: inline;
 		border-radius: 10px;
 		width: 120px;
 		height: 55px;
-		
+
 	}
 	#grad1:hover, #grad2:hover, #grad3:hover, #grad4:hover, #grad5:hover{
 		cursor: pointer;
@@ -332,7 +341,7 @@ nav{
 	#custom-inp1, #custom-inp2{
 		margin-right: 10px;
 	}
-} 
+}
 
 @media only screen and (max-width: 1200px) {
 	#create-window{
@@ -437,7 +446,7 @@ nav{
 		padding-top: 10px;
 		padding-bottom: 10px;
 		display: block;
-		margin:auto; 
+		margin:auto;
 		border-radius: 10px;
 		text-decoration: none;
 	}
@@ -449,14 +458,14 @@ nav{
 		width: 200px;
 	}
 	#pfp-btn{
-		margin-top: 
+		margin-top:
 	}
 	#grad1, #grad2, #grad3, #grad4, #grad5{
 		position: inline;
 		border-radius: 10px;
 		width: 120px;
 		height: 55px;
-		
+
 	}
 	#grad1:hover, #grad2:hover, #grad3:hover, #grad4:hover, #grad5:hover{
 		cursor: pointer;
@@ -475,4 +484,3 @@ nav{
 
 }
 /*------------------------*/
-

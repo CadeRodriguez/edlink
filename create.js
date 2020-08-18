@@ -14,6 +14,58 @@ var firebaseConfig = {
   firebase.auth();
   var db = firebase.firestore();
   var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  var storage = firebase.storage();
+
+  function sLinks(){ //shows links and hides design
+      document.getElementById('linksPart').style.display='block';
+      document.getElementById('designPart').style.display='none';
+  }
+
+  function sDesign(){ //shows design and hides links
+      document.getElementById('linksPart').style.display='none';
+      document.getElementById('designPart').style.display='block';
+  }
+
+
+// code to change picture
+var chooseImage = document.getElementById('chooseImage');
+var imgFile = document.getElementById('imgFile');
+  chooseImage.addEventListener("click",function(){
+    imgFile.click();
+  });
+
+imgFile.addEventListener("change", handleFiles, false);
+
+function handleFiles() {
+  if (this.files.length){
+    for (let i = 0; i < this.files.length; i++) {
+    var profileImage = document.getElementById("profileImage");
+
+
+    profileImage.src = URL.createObjectURL(this.files[i]);
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+  }
+  var previewImage = document.getElementById("previewImage");
+  previewImage.src = profileImage.src;
+  console.log(profileImage.src);
+// uploading to storage
+  // Get a reference to the storage service, which is used to create references in your storage bucket
+    var storage = firebase.storage();
+  // Create a storage reference from our storage service
+    var storageRef = storage.ref();
+  // referencing blob carrying user image
+    var file = this.files[0];
+  // setting metadata
+    var metadata = {
+      contentType: 'image/jpeg'
+    };
+  // upload image with metadata
+    var uploadTask = storageRef.child('userImages/' + userId).put(file, metadata);
+
+
+  }
+}
+
 
   $('#form1').submit(function(e) {
   	e.preventDefault(); //keeps page from refreshing
@@ -22,10 +74,9 @@ var firebaseConfig = {
   	// So this block stores the link the user inputs, but doesn't do anything with it yet
       var link_link_input = document.getElementById('link_link_input');
       var hyperlink = link_link_input.value;
-
-      // This block stores the title, for when the link is posted
-  	var link_title_input = document.getElementById('link_title_input'); //gets what user types in and gives it a name
-  	var post_text = link_title_input.value; // setting a new variable with the value
+    // This block stores the title, for when the link is posted
+  	  var link_title_input = document.getElementById('link_title_input');
+  	  var post_text = link_title_input.value; // setting a new variable with the value
 
   	//Posts everything
       addPost(post_text, hyperlink);
@@ -33,36 +84,74 @@ var firebaseConfig = {
     // saves information by calling saveWebElements
     console.log("calling saveWebElements");
        saveWebElements(post_text, hyperlink);
-    //testing
-    bringBack(doc);
     //Deletes whats in the input after user submits
       link_link_input.value = '';
       link_title_input.value = '';
-
   });
 
-  function addPost(post_text, hyperlink) {
+  // saveItemToDatabase function
+  function saveWebElements(post_text,hyperlink){
+    // saving the inputted information in new documents (should be titled after userId)
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+      doc = db.collection("users").doc(userId).collection("page").add({
+          title: post_text,
+          link: hyperlink,
+    })
+    .catch(function(error){
+      console.error("error writing document:", error);
+    });
+  }
 
-  	//background card
+  function addPost(post_text, hyperlink, doc) {
+
+  //background card
   	var post_card = document.createElement('a'); // creates an a tag
   	var breakline = document.createElement('br');
+  // x to delete cards
+    var x = document.createElement('p');
 
   	post_card.classList.add('post_card');
   	post_card.href = hyperlink;
   	post_card.setAttribute('target', '_blank');
 
   	// Title
+
   	var post_text_elem = document.createElement('div'); // creates a span
   	post_text_elem.innerHTML = post_text; //returns the content of the HTML to variable
-
+    // setting id of x element
+       x.classList.add('delete');
+    // set innerHTML of x
+       x.innerHTML = "delete card";
+    post_card.appendChild(x);
   	post_card.appendChild(post_text_elem);
-  	document.getElementById('phone-preview').appendChild(post_card);
-  	document.getElementById('phone-preview').appendChild(breakline);
 
+    // attaching the x onto the phone-preview
+      document.getElementById('phone-preview').appendChild(x);
+  	  document.getElementById('phone-preview').appendChild(post_card);
+  	  document.getElementById('phone-preview').appendChild(breakline);
+
+  // remove card when clicked
+  x.addEventListener("click", function() {
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+
+    db.collection("users").doc(userId).collection("page").get()
+      .then(function(querySnapshot){
+        querySnapshot.forEach(function(doc) {
+          console.log(doc.id);
+
+            var post_card_id = doc.id;
+            post_card.id = post_card_id;
+
+
+        document.getElementById(post_card_id).remove();
+        x.remove();
+        db.collection("users").doc(userId).collection("page").doc(post_card_id).delete();
+      })
+    })
+
+    });
+  //
   	//drag and drop
-
-// setting docId variables
-
 
   }
 
@@ -70,22 +159,42 @@ var firebaseConfig = {
   	var inp1 = document.getElementById('custom-inp1').value;
   	var inp2 = document.getElementById('custom-inp2').value;
   	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#'+inp1+', #'+inp2+')';
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).collection("gradient").doc("gradients").set({
+          gradient: 'linear-gradient(#'+inp1+', #'+inp2+')'
+    });
   }
 
   function optheme(){
   	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(yellow, #FF30AC)';
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).collection("gradient").doc("gradients").set({
+          gradient: "linear-gradient(yellow, #FF30AC)"
+    });
   }
 
   function bgtheme(){
   	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#4BFFD4, #3787FF)';
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).collection("gradient").doc("gradients").set({
+          gradient: 'linear-gradient(#4BFFD4, #3787FF)'
+    });
   }
 
   function pptheme(){
   	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#FF96CE, #933FFF)';
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).collection("gradient").doc("gradients").set({
+          gradient: 'linear-gradient(#FF96CE, #933FFF)'
+    });
   }
 
   function bwtheme(){
   	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(yellow, #5FFE78)';
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).collection("gradient").doc("gradients").set({
+          gradient: 'linear-gradient(yellow, #5FFE78)'
+    });
   }
 
   const draggables = document.querySelectorAll('.draggable')
@@ -130,39 +239,38 @@ var firebaseConfig = {
 // END OF CADE'S CODE ------------------------------------------>
 
 
-// saveItemToDatabase function
-function saveWebElements(post_text,hyperlink){
-  // saving the inputted information in new documents (should be titled after userId)
-  var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
-    doc = db.collection("users").doc(userId).set({
-        title: post_text,
-        link: hyperlink,
-        gradient: 
-    })
-  .then(function(){
-    console.log("document successfully written");
-  })
-  .catch(function(error){
-    console.error("error writing document:", error);
-  });
-}
-
-
 // function to load the user's webpage
   function loadPage(){
-    db.collection("users").get().then(function(querySnapshot) {
+      var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    db.collection("users").doc(userId).collection("page").get().then(function(querySnapshot) {
+    // this is why i'm getting those undefined returns
       querySnapshot.forEach(function(doc) {
-        // setting doc data for link as hyperlink
+      // setting doc data for link as hyperlink
           var hyperlink = doc.data().link;
-        // setting doc data for title as post_text
-      	var post_text = doc.data().title;
-        addPost(post_text, hyperlink);
-      });
-    });
-  };
-
-
+      // setting doc data for title as post_text
+      	   var post_text = doc.data().title;
+            addPost(post_text, hyperlink);
+      // bringing back gradient
+        });
+      })
+  // bringing back profile picture
+    // referencing data location
+      var storage = firebase.storage();
+      var storageRef = storage.ref();
+    // downloading image url from storageRef
+      storageRef.child('userImages/' + userId).getDownloadURL().then(function(url) {
+        var profileImage = document.getElementById("profileImage");
+          profileImage.src = url;
+        var previewImage = document.getElementById("previewImage");
+          previewImage.src = profileImage.src;
+  // bringing back gradients
+    db.collection("users").doc(userId).collection("gradient").get().then(function(querySnapshot) { querySnapshot.forEach(function(doc) {
+      document.getElementById('phone-preview').style.backgroundImage = doc.data().gradient;
+    })
+    })
+      })
+  }
 // calling the function above when the page comes back
 $(document).ready(function(){
-    loadPage()
+    loadPage();
 });
