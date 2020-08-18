@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Create | edLink</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create | edLink</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-		<link href="styles.css" rel="stylesheet" type="text/css">
-		<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
         <link rel="icon" href="images/edlink-link.png" type="image/png">
-		<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-	</head>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+        <link href="create.css" rel="stylesheet" type="text/css">
+
+    </head>
 
     <body id="body">
 
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white; color: white">
           	<a class="navbar-brand" href="index.html">
-    			<img src="images/logo.png" height="45" class="d-inline-block align-top" alt="" loading="lazy">
+    			<img src="images/logo.png" height="45" class="d-inline-block align-top" loading="lazy">
   			</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,87 +35,77 @@
 
 
         <br><br>
+        <div class="d-flex justify-content-center">
 
-        <div id="create-window">
-            <div id="section1">
+            <div class="section1 col-10 col-lg-6">
                 <div id="create-title" align="center">
-                    <h1 style="font-weight: normal">Your edLink</h1>
-                    <h3 style="font-weight: 200">https://www.edlink.parthean.com/username</h3>
-                </div>
-
-                <div id="create-nav">
-                    <div id="create-nav1" align="center" onclick="document.getElementById('linksPart').style.display='block';
-      document.getElementById('designPart').style.display='none';">
-                        <p>Links</p>
-                    </div>
-                    <div id="create-nav2" align="center" onclick="document.getElementById('linksPart').style.display='none';
-      document.getElementById('designPart').style.display='block';">
-                        <p>Design</p>
-                    </div>
-                </div>
-
-                <div id="linksPart">
                     <br>
-                    <form class="form-inline" id="form1">
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" class="form-control" id="link_title_input" placeholder="Title">
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" class="form-control" id="link_link_input" placeholder="Link">
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2" style="background-color: #FF6857; border: none; color: white">Add to Page</button>
-                    </form>
-                </div>
-                <div id="designPart">
-                    <div id="profilepicture">
-                        <h4 style="font-weight: normal">Profile Picture</h4>
-                        <div id="pfp-img">
-                            <img src="images/profilepicture.png">
-                            <div style="display: inline-block;" id="pfp-btn">
-                                <button type="submit" class="btn btn-primary mb-2" style="background-color: #FF6857; border: none; color: white">Choose Image</button>
-                                <br>
-                                <button type="submit" class="btn btn-primary mb-2" style="background-color: #FF6857; border: none; color: white">Remove Image</button>
+                    <h1>Your edLink</h1>
+                    <a href="" id="url-link-md"><h3>https://edlink.parthean.com/{username}</h3></a>
+                    <a href="" id="url-link-xs"><h3>{username}</h3></a>
+                    <br>
+
+                    <div align="center">
+                        <button type="button" class="btn btn-light col-11 col-md-4 mx-1 mt-1 linksNavButton" onclick="document.getElementById('linksPart').style.display='block';document.getElementById('designPart').style.display='none';">Links</button>
+                        <button type="button" class="btn btn-light col-11 col-md-4 mx-1 mt-1 designNavButton" onclick="document.getElementById('linksPart').style.display='none';document.getElementById('designPart').style.display='block';">Design</button>
+                    </div>
+                    <br>
+
+                    <div id="linksPart">
+                        <div class="form-inline d-flex justify-content-center">
+                            <div class="input-group col-12 col-md-5 mt-1">
+                                <input type="text" class="form-control" id="titleInput" placeholder="Title">
+                            </div>
+                            <div class="input-group col-12 col-md-5 mt-1">
+                                <input type="text" class="form-control" id="linkInput" placeholder="Link">
                             </div>
                         </div>
-
+                        <br>
+                        <button type="submit" class="btn btn-primary btn-block col-11 col-md-10">Add to Page</button>
                     </div>
-                    <br>
-                    <div id="color-theme">
-                        <h4 style="font-weight: normal">Color Theme</h4>
-                        <div id="grad1" style="background-image: linear-gradient(yellow, #FF30AC); float: left" onclick="optheme()"></div>
-                        <div id="grad2" style="background-image: linear-gradient(#4BFFD4, #3787FF); float: left" onclick="bgtheme()"></div>
-                        <div id="grad3" style="background-image: linear-gradient(#FF96CE, #933FFF); float: left" onclick="pptheme()"></div>
-                        <div id="grad4" style="background-image: linear-gradient(#F8EF20, #5FFE78); float: left" onclick="bwtheme()"></div>
-                        <br><br><br>
-                        <div id="custom-grad">
-                            <h6 style="font-weight: normal; display: inline-block;">Custom Gradient</h6>
+
+                    <div id="designPart" style="display: none"  align="left">
+                        <h5>Profile Picture</h5>
+                        <br>
+
+                        <h5 class="mb-2">Color Theme</h5>
+                        <div align="center">
+                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn" id="yellow-pink-theme"></button>
+                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn" id="lightblue-blue-theme"></button>
+                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn" id="pink-purple-theme"></button>
+                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn" id="yellow-green-theme"></button>
                             <br>
+                            <h6 align="left" class="ml-3 mt-4">Custom Theme</h6>
                             <div class="form-inline">
-                                <div class="form-group">
-                                <input type="text" class="form-control" id="custom-inp1" placeholder="Hex Code" style="border: none; background-color: #DDDDDD">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="custom-inp2" placeholder="Hex Code" style="border: none; background-color: #DDDDDD">
-                            </div>
-                            <div class="form-group">
-                                <button type="text" class="form-control" id="custom-btn" style="background-color: #FF6857; color: white; border: none;" onclick="customtheme()">Use Custom Gradient</button>
-                            </div>
-                            </div>
-                            <br>
 
+                                <div class="input-group col-md-4 mt-1">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">#</span>
+                                  </div>
+                                  <input type="text" class="form-control" placeholder="Hex Code 1" id="custom-input-1">
+                                </div> 
+
+                                <div class="input-group col-md-4 mt-1">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">#</span>
+                                  </div>
+                                  <input type="text" class="form-control" placeholder="Hex Code 2" id="custom-input-2">
+                                </div>  
+                                
+                                <button type="button" class="btn btn-success form-control col-md-3 mt-1" id="custom-gradient-btn">Use Gradient</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
 
-            <div id="section2">
-                <div id="phone-preview">
-                    <img src="images/profilepicture.png">
-                    <p style="text-align:center; font-size: 1.15em">@Username </p>
-                </div>
+            <div class="section2 col-lg-4">
+                <div class="form-inline d-flex justify-content-center">
+                    <div class="col-md-8" id="phone-preview">
+                    </div>
             </div>
         </div>
+
 
         <br><br><br>
 
@@ -130,6 +121,6 @@
 		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
         <!-- Other JS -->
-        <script src="create.js"></script>
+        <script src="create-2.js"></script>
     </body>
 </html>

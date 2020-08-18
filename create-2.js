@@ -1,3 +1,23 @@
+//change style and elements between xs+sm+medium and lg+xl
+$(document).ready(function(){
+    window_width = $(window).width();
+        if(window_width <= 991){
+        $('.section1').css('border-top-right-radius', '15px');
+        $('.section1').css('border-bottom-right-radius', '15px');
+        $('.section2').hide();
+        $('#url-link-md').hide();
+        $('#url-link-xs').show();
+        $('#phone-preview').hide();
+        $('#custom-gradient-btn').addClass('mb-3');
+    }else {
+        $('.section2').show();
+        $('#url-link-xs').hide();
+        $('#url-link-md').show();
+        $('#phone-preview').show();
+        $('#custom-gradient-btn').removeClass('mb-3');    
+    }
+});
+
 var firebaseConfig = {
     apiKey: "AIzaSyDQqS1OuU1s8cwkyQDcgqQV9vquxFZAfTU",
     authDomain: "partheanedlink.firebaseapp.com",
@@ -16,18 +36,18 @@ var firebaseConfig = {
   var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
   $('#form1').submit(function(e) {
-  	e.preventDefault(); //keeps page from refreshing
+    e.preventDefault(); //keeps page from refreshing
       console.log('posted!');
 
-  	// So this block stores the link the user inputs, but doesn't do anything with it yet
+    // So this block stores the link the user inputs, but doesn't do anything with it yet
       var link_link_input = document.getElementById('link_link_input');
       var hyperlink = link_link_input.value;
 
       // This block stores the title, for when the link is posted
-  	var link_title_input = document.getElementById('link_title_input'); //gets what user types in and gives it a name
-  	var post_text = link_title_input.value; // setting a new variable with the value
+    var link_title_input = document.getElementById('link_title_input'); //gets what user types in and gives it a name
+    var post_text = link_title_input.value; // setting a new variable with the value
 
-  	//Posts everything
+    //Posts everything
       addPost(post_text, hyperlink);
 
     // saves information by calling saveWebElements
@@ -43,49 +63,43 @@ var firebaseConfig = {
 
   function addPost(post_text, hyperlink) {
 
-  	//background card
-  	var post_card = document.createElement('a'); // creates an a tag
-  	var breakline = document.createElement('br');
+    //background card
+    var post_card = document.createElement('a'); // creates an a tag
+    var breakline = document.createElement('br');
 
-  	post_card.classList.add('post_card');
-  	post_card.href = hyperlink;
-  	post_card.setAttribute('target', '_blank');
+    post_card.classList.add('post_card');
+    post_card.href = hyperlink;
+    post_card.setAttribute('target', '_blank');
 
-  	// Title
-  	var post_text_elem = document.createElement('div'); // creates a span
-  	post_text_elem.innerHTML = post_text; //returns the content of the HTML to variable
+    // Title
+    var post_text_elem = document.createElement('div'); // creates a span
+    post_text_elem.innerHTML = post_text; //returns the content of the HTML to variable
 
-  	post_card.appendChild(post_text_elem);
-  	document.getElementById('phone-preview').appendChild(post_card);
-  	document.getElementById('phone-preview').appendChild(breakline);
-
-  	//drag and drop
-
-// setting docId variables
-
-
+    post_card.appendChild(post_text_elem);
+    document.getElementById('phone-preview').appendChild(post_card);
+    document.getElementById('phone-preview').appendChild(breakline);
   }
 
   function customtheme(){
-  	var inp1 = document.getElementById('custom-inp1').value;
-  	var inp2 = document.getElementById('custom-inp2').value;
-  	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#'+inp1+', #'+inp2+')';
+    var inp1 = document.getElementById('custom-inp1').value;
+    var inp2 = document.getElementById('custom-inp2').value;
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#'+inp1+', #'+inp2+')';
   }
 
   function optheme(){
-  	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(yellow, #FF30AC)';
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(yellow, #FF30AC)';
   }
 
   function bgtheme(){
-  	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#4BFFD4, #3787FF)';
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#4BFFD4, #3787FF)';
   }
 
   function pptheme(){
-  	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#FF96CE, #933FFF)';
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#FF96CE, #933FFF)';
   }
 
   function bwtheme(){
-  	document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(yellow, #5FFE78)';
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(yellow, #5FFE78)';
   }
 
   const draggables = document.querySelectorAll('.draggable')
@@ -155,7 +169,7 @@ function saveWebElements(post_text,hyperlink){
         // setting doc data for link as hyperlink
           var hyperlink = doc.data().link;
         // setting doc data for title as post_text
-      	var post_text = doc.data().title;
+        var post_text = doc.data().title;
         addPost(post_text, hyperlink);
       });
     });
