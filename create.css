@@ -20,6 +20,8 @@ body{
 	transform: translateY(5.5%);
 	border-radius: 30px;
 	border: 20px solid lightgray;
+	overflow-y: scroll;
+	background-image: linear-gradient(#F8EF20, #FF30AC);
 }
 
 #create-title h1{
@@ -43,17 +45,32 @@ body{
 	height: 50px;
 	border: none;
 }
-#yellow-pink-theme{
-	background-image: linear-gradient(yellow, #FF30AC);
-}
-
 #lightblue-blue-theme{
 	background-image: linear-gradient(#4BFFD4, #3787FF);
 }
-
+#yellow-pink-theme{
+	background-image: linear-gradient(#F8EF20, #FF30AC);
+}
 #pink-purple-theme{
 	background-image: linear-gradient(#FF96CE, #933FFF);
 }
 #yellow-green-theme{
 	background-image: linear-gradient(#F8EF20, #5FFE78);
+}
+
+/*phone preview content*/
+.post_card p, .post_card p:hover, .post_card p:active, .post_card p:visited{
+	background-color: white;
+	color: black;
+	text-decoration: none;
+	border-radius: 7.5px;
+	height: 35px;
+	font-size: 1.2em
+	max-width: 250px;
+	display: flex;
+	justify-content: center;
+  	align-items: center;
+}
+#username-preview{
+	color: black;
 }

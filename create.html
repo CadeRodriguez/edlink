@@ -61,38 +61,42 @@
                             </div>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-primary btn-block col-11 col-md-10">Add to Page</button>
+                        <button type="submit" class="btn btn-outline-primary btn-block col-11 col-md-10 add-to-page-btn">Add to Page</button>
                     </div>
 
-                    <div id="designPart" style="display: none"  align="left">
+                    <div id="designPart" class="mr-5" style="display: none"  align="left">
                         <h5>Profile Picture</h5>
-                        <br>
+                        <img src="images/filler-pfp.png" width="auto" height="130">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button type="button" class="btn btn-outline-primary">Choose Image</button>
+                          <button type="button" class="btn btn-outline-primary">Remove Image</button>
+                        </div>
 
                         <h5 class="mb-2">Color Theme</h5>
                         <div align="center">
-                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn" id="yellow-pink-theme"></button>
-                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn" id="lightblue-blue-theme"></button>
-                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn" id="pink-purple-theme"></button>
-                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn" id="yellow-green-theme"></button>
+                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn gradient-change" id="yellow-pink-theme"></button>
+                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn gradient-change" id="lightblue-blue-theme"></button>
+                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn gradient-change" id="pink-purple-theme"></button>
+                            <button type="button" class="btn col-sm-5 col-md-2 mx-1 mt-1 theme-btn gradient-change" id="yellow-green-theme"></button>
                             <br>
                             <h6 align="left" class="ml-3 mt-4">Custom Theme</h6>
-                            <div class="form-inline">
+                            <div class="form-inline mb-3">
 
-                                <div class="input-group col-md-4 mt-1">
+                                <div class="input-group col-md-4 mb-1">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text">#</span>
                                   </div>
                                   <input type="text" class="form-control" placeholder="Hex Code 1" id="custom-input-1">
                                 </div> 
 
-                                <div class="input-group col-md-4 mt-1">
+                                <div class="input-group col-md-4 mb-1">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text">#</span>
                                   </div>
                                   <input type="text" class="form-control" placeholder="Hex Code 2" id="custom-input-2">
                                 </div>  
                                 
-                                <button type="button" class="btn btn-success form-control col-md-3 mt-1" id="custom-gradient-btn">Use Gradient</button>
+                                <button type="button" class="btn btn-outline-primary form-control col-md-3 mb-1" id="custom-gradient-btn">Use Gradient</button>
                             </div>
                         </div>
                     </div>
@@ -101,7 +105,9 @@
 
             <div class="section2 col-lg-4">
                 <div class="form-inline d-flex justify-content-center">
-                    <div class="col-md-8" id="phone-preview">
+                    <div class="col-lg-10 col-xl-9" id="phone-preview" align="center">
+                        <img src="images/filler-pfp.png" width="auto" height="130">
+                        <p id="username-preview">{username}</p>
                     </div>
             </div>
         </div>

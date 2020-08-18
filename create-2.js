@@ -9,7 +9,14 @@ $(document).ready(function(){
         $('#url-link-xs').show();
         $('#phone-preview').hide();
         $('#custom-gradient-btn').addClass('mb-3');
-    }else {
+    }else if(window_width >= 1400) {
+        $('#phone-preview').addClass('col-xl-8');
+        $('#phone-preview').removeClass('col-xl-9');
+        $('#url-link-xs').hide();
+        $('#url-link-md').show();
+    }else{
+        $('#phone-preview').addClass('col-xl-9');
+        $('#phone-preview').removeClass('col-xl-8');
         $('.section2').show();
         $('#url-link-xs').hide();
         $('#url-link-md').show();
@@ -35,74 +42,86 @@ var firebaseConfig = {
   var db = firebase.firestore();
   var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-  $('#form1').submit(function(e) {
+  $('.add-to-page-btn').click(function(e) {
     e.preventDefault(); //keeps page from refreshing
       console.log('posted!');
 
-    // So this block stores the link the user inputs, but doesn't do anything with it yet
-      var link_link_input = document.getElementById('link_link_input');
-      var hyperlink = link_link_input.value;
+      if(($.trim($('#linkInput').val()) !== '')&&($.trim($('#titleInput').val()) !== '')){
+      // So this block stores the link the user inputs, but doesn't do anything with it yet
+        var link_link_input = document.getElementById('linkInput');
+        var hyperlink = link_link_input.value;
 
-      // This block stores the title, for when the link is posted
-    var link_title_input = document.getElementById('link_title_input'); //gets what user types in and gives it a name
-    var post_text = link_title_input.value; // setting a new variable with the value
+        // This block stores the title, for when the link is posted
+        var link_title_input = document.getElementById('titleInput'); //gets what user types in and gives it a name
+        var post_text = link_title_input.value; // setting a new variable with the value
 
-    //Posts everything
-      addPost(post_text, hyperlink);
+        //Posts everything
+        addPost(post_text, hyperlink);
 
-    // saves information by calling saveWebElements
-    console.log("calling saveWebElements");
-       saveWebElements(post_text, hyperlink);
-    //testing
-    bringBack(doc);
-    //Deletes whats in the input after user submits
-      link_link_input.value = '';
-      link_title_input.value = '';
-
+        // saves information by calling saveWebElements
+        console.log("calling saveWebElements");
+    //saveWebElements(post_text, hyperlink);
+        //testing
+    //bringBack(doc);
+        //Deletes whats in the input after user submits
+        link_link_input.value = '';
+        link_title_input.value = '';
+      }else{
+        alert('Input fields cannot be empty');
+      }
   });
 
   function addPost(post_text, hyperlink) {
 
     //background card
     var post_card = document.createElement('a'); // creates an a tag
-    var breakline = document.createElement('br');
 
     post_card.classList.add('post_card');
     post_card.href = hyperlink;
     post_card.setAttribute('target', '_blank');
 
     // Title
-    var post_text_elem = document.createElement('div'); // creates a span
+    var post_text_elem = document.createElement('p'); // creates a span
     post_text_elem.innerHTML = post_text; //returns the content of the HTML to variable
 
     post_card.appendChild(post_text_elem);
     document.getElementById('phone-preview').appendChild(post_card);
-    document.getElementById('phone-preview').appendChild(breakline);
   }
 
-  function customtheme(){
-    var inp1 = document.getElementById('custom-inp1').value;
-    var inp2 = document.getElementById('custom-inp2').value;
-    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#'+inp1+', #'+inp2+')';
-  }
-
-  function optheme(){
-    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(yellow, #FF30AC)';
-  }
-
-  function bgtheme(){
+//Background Theme
+  var gradient_var = '';
+  $('#custom-gradient-btn').click(function(e) {
+    e.preventDefault(); //keeps page from refreshing
+    var inp1 = document.getElementById('custom-input-1').value;
+    var inp2 = document.getElementById('custom-input-2').value;
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#'+inp1+', #'+inp2+');';
+    gradient_var = "linear-gradient(#"+inp1+", #"+inp2+");";
+    saveGradient(gradient_var);
+  });
+  $('#yellow-pink-theme').click(function(e) {
+    e.preventDefault(); //keeps page from refreshing
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#F8EF20, #FF30AC);';
+    gradient_var = "linear-gradient(#F8EF20, #FF30AC);";
+    saveGradient(gradient_var);
+  });
+  $('#lightblue-blue-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#4BFFD4, #3787FF)';
-  }
-
-  function pptheme(){
+    gradient_var = "linear-gradient(#F8EF20, #FF30AC);";
+    saveGradient(gradient_var);
+  });
+  $('#pink-purple-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#FF96CE, #933FFF)';
-  }
+    gradient_var = "linear-gradient(#F8EF20, #FF30AC);";
+    saveGradient(gradient_var);
+  });
+  $('#yellow-green-theme').click(function(e) {
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#F8EF20, #5FFE78)';
+    gradient_var = "linear-gradient(#F8EF20, #FF30AC);";
+    saveGradient(gradient_var);
+  });
+//End Theme
 
-  function bwtheme(){
-    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(yellow, #5FFE78)';
-  }
-
-  const draggables = document.querySelectorAll('.draggable')
+  /*const draggables = document.querySelectorAll('.draggable')
   const containers = document.querySelectorAll('#links-container')
 
   draggables.forEach(draggable => {
@@ -140,7 +159,7 @@ var firebaseConfig = {
         return closest
       }
     }, { offset: Number.NEGATIVE_INFINITY }).element
-  }
+  }*/
 // END OF CADE'S CODE ------------------------------------------>
 
 
@@ -151,8 +170,7 @@ function saveWebElements(post_text,hyperlink){
     doc = db.collection("users").doc(userId).set({
         title: post_text,
         link: hyperlink,
-        gradient: 
-    });
+    })
   .then(function(){
     console.log("document successfully written");
   })
@@ -161,6 +179,19 @@ function saveWebElements(post_text,hyperlink){
   });
 }
 
+//save gradient
+function saveGradient(gradient_var){
+  var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).set({
+        gradient: gradient_var,
+    })
+  .then(function(){
+    console.log("document successfully written");
+  })
+  .catch(function(error){
+    console.error("error writing document:", error);
+  });
+}
 
 // function to load the user's webpage
   function loadPage(){
