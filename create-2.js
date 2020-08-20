@@ -21,7 +21,7 @@ $(document).ready(function(){
         $('#url-link-xs').hide();
         $('#url-link-md').show();
         $('#phone-preview').show();
-        $('#custom-gradient-btn').removeClass('mb-3');    
+        $('#custom-gradient-btn').removeClass('mb-3');
     }
 });
 
@@ -60,9 +60,7 @@ var firebaseConfig = {
 
         // saves information by calling saveWebElements
         console.log("calling saveWebElements");
-    //saveWebElements(post_text, hyperlink);
-        //testing
-    //bringBack(doc);
+        saveWebElements(post_text, hyperlink);
         //Deletes whats in the input after user submits
         link_link_input.value = '';
         link_title_input.value = '';
@@ -106,17 +104,17 @@ var firebaseConfig = {
   });
   $('#lightblue-blue-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#4BFFD4, #3787FF)';
-    gradient_var = "linear-gradient(#F8EF20, #FF30AC);";
+    gradient_var = "linear-gradient(#F8EF20, #3787FF);";
     saveGradient(gradient_var);
   });
   $('#pink-purple-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#FF96CE, #933FFF)';
-    gradient_var = "linear-gradient(#F8EF20, #FF30AC);";
+    gradient_var = "linear-gradient(#F8EF20, #933FFF);";
     saveGradient(gradient_var);
   });
   $('#yellow-green-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#F8EF20, #5FFE78)';
-    gradient_var = "linear-gradient(#F8EF20, #FF30AC);";
+    gradient_var = "linear-gradient(#F8EF20, #5FFE78);";
     saveGradient(gradient_var);
   });
 //End Theme
@@ -160,7 +158,6 @@ var firebaseConfig = {
       }
     }, { offset: Number.NEGATIVE_INFINITY }).element
   }*/
-// END OF CADE'S CODE ------------------------------------------>
 
 
 // saveItemToDatabase function
