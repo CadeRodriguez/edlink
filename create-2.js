@@ -40,7 +40,61 @@ var firebaseConfig = {
   firebase.analytics();
   firebase.auth();
   var db = firebase.firestore();
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  var ui = new firebaseui.auth.AuthUI(firebase.auth()); 
+  var storage = firebase.storage();
+
+  function sLinks(){ //shows links and hides design
+      document.getElementById('linksPart').style.display='block';
+      document.getElementById('designPart').style.display='none';
+  }
+
+  function sDesign(){ //shows design and hides links
+      document.getElementById('linksPart').style.display='none';
+      document.getElementById('designPart').style.display='block';
+  }
+
+
+// code to change picture
+var chooseImage = document.getElementById('chooseImage');
+var imgFile = document.getElementById('imgFile');
+  chooseImage.addEventListener("click",function(){
+    imgFile.click();
+  });
+
+imgFile.addEventListener("change", handleFiles, false);
+
+function handleFiles() {
+  if (this.files.length){
+    for (let i = 0; i < this.files.length; i++) {
+    var profileImage = document.getElementById("profileImage");
+
+
+    profileImage.src = URL.createObjectURL(this.files[i]);
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+  }
+  var previewImage = document.getElementById("previewImage");
+  previewImage.src = profileImage.src;
+  console.log(profileImage.src);
+// uploading to storage
+// Get a reference to the storage service, which is used to create references in your storage bucket
+    var storage = firebase.storage();
+  // Create a storage reference from our storage service
+    var storageRef = storage.ref();
+  // referencing blob carrying user image
+    var file = this.files[0];
+  // setting metadata
+    var metadata = {
+      contentType: 'image/jpeg'
+    };
+  // upload image with metadata
+    var uploadTask = storageRef.child('userImages/' + userId).put(file, metadata);
+
+
+  }
+}
+
+
+
 
   $('.add-to-page-btn').click(function(e) {
     e.preventDefault(); //keeps page from refreshing
