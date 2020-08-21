@@ -1,0 +1,30 @@
+body{
+	background-color: lightgrey;
+}
+.box1{
+	background: linear-gradient(yellow,hotpink);
+	background-repeat:repeat-x;
+	background-attachment: fixed;
+	margin-top:2.5%;
+	padding:0%;
+	border-radius: 15px;
+	height:650px;
+	width:95%;
+	margin-right:2.5%;
+	margin-left:2.5%;
+	text-align: center;
+	padding-top: 5%;
+}
+.box2{
+	background-color: white;
+	border-radius: 10px;
+	width:35%;
+	margin-left: 32.5%;
+}
+.box3{
+	background-color: white;
+	border-radius: 10px;
+	width:35%;
+	margin-left: 32.5%;
+}
+
