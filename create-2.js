@@ -40,7 +40,7 @@ var firebaseConfig = {
   firebase.analytics();
   firebase.auth();
   var db = firebase.firestore();
-  var ui = new firebaseui.auth.AuthUI(firebase.auth()); 
+  var ui = new firebaseui.auth.AuthUI(firebase.auth());
   var storage = firebase.storage();
 
   function sLinks(){ //shows links and hides design
@@ -67,12 +67,9 @@ function handleFiles() {
   if (this.files.length){
     for (let i = 0; i < this.files.length; i++) {
     var profileImage = document.getElementById("profileImage");
-
-
     profileImage.src = URL.createObjectURL(this.files[i]);
     var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
   }
-  var previewImage = document.getElementById("previewImage");
   previewImage.src = profileImage.src;
   console.log(profileImage.src);
 // uploading to storage
@@ -88,15 +85,13 @@ function handleFiles() {
     };
   // upload image with metadata
     var uploadTask = storageRef.child('userImages/' + userId).put(file, metadata);
-
-
   }
 }
 
 
 
 
-  $('.add-to-page-btn').click(function(e) {
+$('.add-to-page-btn').click(function(e) {
     e.preventDefault(); //keeps page from refreshing
       console.log('posted!');
 
@@ -111,7 +106,6 @@ function handleFiles() {
 
         //Posts everything
         addPost(post_text, hyperlink);
-
         // saves information by calling saveWebElements
         console.log("calling saveWebElements");
         saveWebElements(post_text, hyperlink);
@@ -123,10 +117,16 @@ function handleFiles() {
       }
   });
 
-  function addPost(post_text, hyperlink) {
+  function addPost(post_text, hyperlink, docRef) {
 
     //background card
     var post_card = document.createElement('a'); // creates an a tag
+    var x = document.createElement('p');
+    // setting id of x element
+       x.classList.add('delete');
+    // set innerHTML of x
+       x.innerHTML = "delete card";
+    post_card.appendChild(x);
 
     post_card.classList.add('post_card');
     post_card.href = hyperlink;
@@ -136,42 +136,66 @@ function handleFiles() {
     var post_text_elem = document.createElement('p'); // creates a span
     post_text_elem.innerHTML = post_text; //returns the content of the HTML to variable
 
+    // attaching the x onto the phone-preview
+    document.getElementById('phone-preview').appendChild(x);
     post_card.appendChild(post_text_elem);
     document.getElementById('phone-preview').appendChild(post_card);
-  }
+
+    // remove card when clicked
+  x.addEventListener("click", function() {
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+
+    db.collection("users").doc(userId).collection("page").get()
+        var post_card_id = userId;
+        post_card.id = post_card_id;
+
+        document.getElementById(post_card_id).remove();
+        x.remove();
+        db.collection("users").doc(userId).collection("page").doc(post_text).delete();
+  })
+}
 
 //Background Theme
-  var gradient_var = '';
   $('#custom-gradient-btn').click(function(e) {
     e.preventDefault(); //keeps page from refreshing
     var inp1 = document.getElementById('custom-input-1').value;
     var inp2 = document.getElementById('custom-input-2').value;
+    console.log('linear-gradient(#'+inp1+', #'+inp2+');');
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#'+inp1+', #'+inp2+');';
-    gradient_var = "linear-gradient(#"+inp1+", #"+inp2+");";
-    saveGradient(gradient_var);
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).set({
+          gradient: 'linear-gradient(#'+inp1+', #'+inp2+')'
+    });
   });
   $('#yellow-pink-theme').click(function(e) {
     e.preventDefault(); //keeps page from refreshing
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#F8EF20, #FF30AC);';
-    gradient_var = "linear-gradient(#F8EF20, #FF30AC);";
-    saveGradient(gradient_var);
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).set({
+          gradient: "linear-gradient(#F8EF20, #FF30AC)"
+    });
   });
   $('#lightblue-blue-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#4BFFD4, #3787FF)';
-    gradient_var = "linear-gradient(#F8EF20, #3787FF);";
-    saveGradient(gradient_var);
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).set({
+          gradient: "linear-gradient(#F8EF20, #3787FF)"
+    });
   });
   $('#pink-purple-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#FF96CE, #933FFF)';
-    gradient_var = "linear-gradient(#F8EF20, #933FFF);";
-    saveGradient(gradient_var);
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).set({
+          gradient: "linear-gradient(#F8EF20, #933FFF)"
+    });
   });
   $('#yellow-green-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#F8EF20, #5FFE78)';
-    gradient_var = "linear-gradient(#F8EF20, #5FFE78);";
-    saveGradient(gradient_var);
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    doc = db.collection("users").doc(userId).set({
+          gradient: "linear-gradient(#F8EF20, #5FFE78)"
+    });
   });
-//End Theme
 
   /*const draggables = document.querySelectorAll('.draggable')
   const containers = document.querySelectorAll('#links-container')
@@ -214,39 +238,26 @@ function handleFiles() {
   }*/
 
 
-// saveItemToDatabase function
-function saveWebElements(post_text,hyperlink){
-  // saving the inputted information in new documents (should be titled after userId)
-  var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
-    doc = db.collection("users").doc(userId).set({
-        title: post_text,
-        link: hyperlink,
-    })
-  .then(function(){
-    console.log("document successfully written");
+  // saveItemToDatabase function
+function saveWebElements(post_text,hyperlink) {
+    // saving the inputted information in new documents (should be titled after userId)
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+      doc = db.collection("users").doc(userId).collection("page").doc(post_text).set ({
+          title: post_text,
+          link: hyperlink,
+      })
+      .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
   })
-  .catch(function(error){
-    console.error("error writing document:", error);
-  });
-}
-
-//save gradient
-function saveGradient(gradient_var){
-  var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
-    doc = db.collection("users").doc(userId).set({
-        gradient: gradient_var,
-    })
-  .then(function(){
-    console.log("document successfully written");
-  })
-  .catch(function(error){
-    console.error("error writing document:", error);
+  .catch(function(error) {
+      console.error("Error adding document: ", error);
   });
 }
 
 // function to load the user's webpage
   function loadPage(){
-    db.collection("users").get().then(function(querySnapshot) {
+    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    db.collection("users").doc(userId).collection("page").get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         // setting doc data for link as hyperlink
           var hyperlink = doc.data().link;
@@ -255,8 +266,24 @@ function saveGradient(gradient_var){
         addPost(post_text, hyperlink);
       });
     });
-  };
-
+    // bringing back profile picture
+    // referencing data location
+      var storage = firebase.storage();
+      var storageRef = storage.ref();
+    // downloading image url from storageRef
+      storageRef.child('userImages/' + userId).getDownloadURL().then(function(url) {
+        var profileImage = document.getElementById("profileImage");
+          profileImage.src = url;
+        var previewImage = document.getElementById("previewImage");
+          previewImage.src = profileImage.src;
+      });
+    // bringing back gradients
+    db.collection("users").doc(userId).get().then(function(doc) {
+      var gradientPeter = doc.data().gradient;
+      console.log(gradientPeter);
+      document.getElementById('phone-preview').style.backgroundImage = doc.data().gradient;
+    });
+}
 
 // calling the function above when the page comes back
 $(document).ready(function(){
