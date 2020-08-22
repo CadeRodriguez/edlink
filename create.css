@@ -15,6 +15,16 @@ body{
 	border-bottom-right-radius: 15px;
 }
 
+/* DELETE IS HERE */
+	.delete {
+		padding: 0px;
+		margin-top: 2px;
+		margin-bottom: 0;
+		color: black;
+		font-weight: bolder;
+		cursor: pointer;
+	}
+
 #phone-preview{
 	height: 450px;
 	transform: translateY(5.5%);
