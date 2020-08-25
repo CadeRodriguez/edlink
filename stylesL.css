@@ -64,6 +64,24 @@ body{
 	box-shadow: none;
 }
 
+a:link {
+  color: #456A8E;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #456A8E;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
 .box2{
 	background-color:white;
 	font-size:150px;
