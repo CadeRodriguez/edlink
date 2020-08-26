@@ -88,6 +88,22 @@ function handleFiles() {
   }
 }
 
+$('#removeImage').click(function(e){
+  var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+  // referencing data location
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+  // downloading image url from storageRef
+    storageRef.child('userImages/' + userId).delete().then(function() {
+      // File deleted successfully
+  }).catch(function(error) {
+    // Uh-oh, an error occurred!
+  });
+  profileImage.src = "images/filler-pfp.png"
+  previewImage.src = profileImage.src;
+})
+
+
 $('.add-to-page-btn').click(function(e) {
     e.preventDefault(); //keeps page from refreshing
       console.log('posted!');
