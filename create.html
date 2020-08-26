@@ -5,6 +5,7 @@
         <title>Create | edLink</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
         <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
         <link rel="icon" href="images/edlink-link.png" type="image/png">
         <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
@@ -15,7 +16,7 @@
     <body id="body">
 
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white; color: white">
-          	<a class="navbar-brand" href="index.html">
+          	<a class="navbar-brand" href="landingpg.html">
     			<img src="images/logo.png" height="45" class="d-inline-block align-top" loading="lazy">
   			</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,10 +25,10 @@
           	<div class="collapse navbar-collapse text-center" id="navbarNav">
             <ul class="navbar-nav ml-auto">
 	                <li class="nav-item">
-	                    <a class="nav-item nav-link" href="https://growafriend.org" target="_blank">Sign In</a>
+	                    <a class="nav-item nav-link" href="Ed-Link_Parthean_Login.html">Sign In</a>
 	                </li>
 	                <li class="nav-item">
-	                  	<button type="button" class="btn btn-light" id="nav-button" style="background-color: #FF6857; border: none; color: white">Register</button>
+	                  	<button type="button" class="btn btn-light" id="nav-button" style="background-color: #FF6857; border: none; color: white" onclick="window.location.href='Ed-Link_Parthean_Signup.html';">Register</button>
 	                </li>
 	            </ul>
           	</div>
@@ -41,11 +42,10 @@
                 <div id="create-title" align="center">
                     <br>
                     <h1>Your edLink</h1>
-                    <a href="" id="url-link-md"><h3>https://edlink.parthean.com/{username}</h3></a>
+                    <a href="" id="url-link-md"><h5>https://edlink.parthean.com/{username}</h5></a>
                     <a href="" id="url-link-xs"><h3>{username}</h3></a>
-                    <br>
 
-                    <div align="center">
+                    <div align="center" id="toggle-screen">
                         <button type="button" class="btn btn-light col-11 col-md-4 mx-1 mt-1 linksNavButton" onclick="document.getElementById('linksPart').style.display='block';document.getElementById('designPart').style.display='none';">Links</button>
                         <button type="button" class="btn btn-light col-11 col-md-4 mx-1 mt-1 designNavButton" onclick="document.getElementById('linksPart').style.display='none';document.getElementById('designPart').style.display='block';">Design</button>
                     </div>
@@ -112,6 +112,11 @@
             </div>
         </div>
                 </div>
+        
+      <div class="rounded-circle" id="pink"></div>
+      <div class="rounded-circle" id="blue"></div>
+      <div class="rounded-circle" id="beige"></div>
+      <div class="rounded-circle" id="green"></div>
 
 
 

@@ -1,5 +1,9 @@
 body{
-	background-color: #F8F3E9
+	background-color: #fffcf6
+}
+
+.navbar {
+    z-index: 2;
 }
 
 .section1{
@@ -7,12 +11,14 @@ body{
 	min-height: 500px;
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
+    z-index: 2;
 }
 .section2{
 	background-color: white;
 	min-height: 500px;
 	border-top-right-radius: 15px;
 	border-bottom-right-radius: 15px;
+    z-index: 2;
 }
 
 /* DELETE IS HERE */
@@ -35,13 +41,46 @@ body{
 }
 
 #create-title h1{
-	font-weight: 300;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: -0.015em;
+    color: black;
 }
 
-#create-title h3, #create-title a{
-	color: black;
+#create-title h5, #create-title a{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+    letter-spacing: -0.015em;
+    color: black;
+	text-decoration: underline;
+}
+
+#create-title button{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 36px;
+    letter-spacing: -0.015em;
 	text-decoration: none;
-	font-weight: lighter;
+}
+
+#toggle-screen button{
+    padding: 0% 0% 0% 0%;
+    color: black;
+}
+
+#create-title input{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 36px;
+    letter-spacing: -0.015em;
+	text-decoration: none;
 }
 
 .btn-light{
@@ -83,4 +122,46 @@ body{
 }
 #username-preview{
 	color: black;
+}
+
+/*background circles*/
+#pink {
+    background-color: #efa79d;
+    border-radius: 50%;
+    width: 50%;
+    padding-top: 50%;
+    z-index: 1;
+    position: fixed;
+    top: -30%;
+    left: -17%;
+}
+#blue {
+    background-color: #456a8e;
+    border-radius: 50%;
+    width: 40%;
+    padding-top: 40%;
+    z-index: 1;
+    position: fixed;
+    top: -45%;
+    left: 45%;
+}
+#beige {
+    background-color: #ffd1ad;
+    border-radius: 50%;
+    width: 40%;
+    padding-top: 40%;
+    z-index: 1;
+    position: fixed;
+    top: 65%;
+    left: 18%;
+}
+#green {
+    background-color: #b2b4a2;
+    border-radius: 50%;
+    width: 40%;
+    padding-top: 40%;
+    z-index: 1;
+    position: fixed;
+    top: 38%;
+    left: 70%;
 }

@@ -65,6 +65,24 @@ html, body{
     border-color:white;
     box-shadow: none;
 }
+
+a:link {
+  color: #456A8E;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #456A8E;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
 /* end of banner */
 
 .login-c {
