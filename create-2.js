@@ -88,9 +88,6 @@ function handleFiles() {
   }
 }
 
-
-
-
 $('.add-to-page-btn').click(function(e) {
     e.preventDefault(); //keeps page from refreshing
       console.log('posted!');
