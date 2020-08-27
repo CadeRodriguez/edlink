@@ -13,75 +13,110 @@ var firebaseConfig = {
   firebase.analytics();
   firebase.auth();
   var db = firebase.firestore();
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  //authentication
 
 //signing up users
-$("#form1").submit(function(e) {
+$("#signupuser").submit(function(e) {
   e.preventDefault();
-    // what the user inputs is saved in a variable: email_input
-      var email = document.getElementById("newEmailInput").value;
-      console.log(email);
-    // what the user inputs is saved in a variable: password_input
-      var password = document.getElementById("newPassInput").value;
-      console.log(password);
-    // call signUp
+  //save email and password inputs
+      emailInput = document.getElementById("newEmailInput").value;
+      console.log(emailInput);
+      passwordInput = document.getElementById("newPassInput").value;
+      console.log(passwordInput);
+      //run signup
     signUp();
-    // call EmailVerification here in hopes that it will only send emails for new users
-    sendEmailVerification();
+    //sendEmailVerification();
 })
 
-//signing in users
-$("#login").submit(function(e) {
+//logging in users
+$("#loginuser").submit(function(e) {
   e.preventDefault();
-    console.log("button click!");
-    // call login < DOESN'T CURRENTLY WORK
-    login();
+//save email and password inputs
+  email = document.getElementById("email_input").value;
+  console.log(email);
+  password = document.getElementById("pass_input").value;
+  console.log(password);
+  login();
+
 })
 
-
-// function for new user sign up in a way that makes sense
+//sign up users
 function signUp() {
-  // what the user inputs is saved in a variable: email_input
-    var email = document.getElementById("newEmailInput").value;
-  // what the user inputs is saved in a variable: password_input
-    var password = document.getElementById("newPassInput").value;
-  firebase.auth().createUserWithEmailAndPassword(email, password).then(cred => {
-  // creates user doc with id that matches userId
-    return db.collection("users").doc(cred.user.uid).set({
-    });
-  });
-  alert("signed up!");
-  console.log("signedUp!");
+  console.log('signup working');
+
+  //handle verification requirements 
+  if (passwordInput.length < 6) {
+    alert("Password length must be at least 6 characters.");
+    return;
+  }
+
+  //create a new user
+  firebase.auth().createUserWithEmailAndPassword(emailInput,passwordInput)
+  .then(function(event) {
+    //add user to database
+      db.collection("users").doc().set({
+      email: emailInput
+    })
+      //REDIRECT LINK
+      console.log('added to database');
+      sendEmailVerification();
+  })
+  //check and print errors
+  .catch(function(error){
+    errorCode = error.code;
+    errorMessage = error.message;
+    console.log(errorCode);
+    //handle error message changes 
+    switch (errorCode) {
+      case "auth/email-already-in-use":
+        alert("The email is already in use. Please sign in with your password.");
+        break;
+      case "auth/invalid-email":
+        alert("Please enter a valid email.");
+        break;
+      default:
+        alert(errorMessage);
+    }
+  })
 }
 
-// function to send email verification to prevent bots or something idk this is completely optional
-function sendEmailVerification() {
-  // what the user inputs is saved in a variable: email_input
-    var email = document.getElementById("newEmailInput").value;
-  // what the user inputs is saved in a variable: password_input
-    var password = document.getElementById("newPassInput").value;
-  firebase.auth().currentUser.sendEmailVerification().then(function() {
-    // email verification sent
-    alert("email verification sent!");
-  });
-}
-
-// this doesn't currently work
+//login users
 function login() {
-// retrieve email and password input
-  var email = document.getElementById('email_input').value;
-  var password = document.getElementById('pass_input').value;
-  // actual sign-in command
-  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-    // handling errors such as incorrect info
+  console.log('login working');
+  //sign in users
+  firebase.auth().signInWithEmailAndPassword(email,password)
+  .then(function(event) {
+    alert("Logged in successfully!");
+    //REDIRECT LINK
+  })
+  .catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
-    if (errorCode === 'auth/wrong-password') {
-      // CHANGETHIS: i would like to change this so that it doesn't alert but rather shows up on the webpage so it looks classier
-      alert('wrong password.');
-    } else {
-      alert(errorMessage);
+//handle error message changes
+    switch(errorCode) {
+      case "auth/user-disabled":
+        alert("This user has been disabled.");
+        break;
+      case "auth/user-not-found":
+        alert("This user is not registered. Sign up with your email.");
+        break;
+      case "auth/wrong-password":
+        alert("The password is incorrect.");
+        break;
+      default:
+        alert(errorMessage);
+
     }
-    console.log(error);
-  });
+  })
+}
+
+function sendEmailVerification() {
+  var user = firebase.auth().currentUser;
+  console.log(user);
+
+  user.sendEmailVerification().then(function() {
+    console.log('email sent');
+  }).catch(function(error) {
+    console.log(error.message);
+  })
 }
