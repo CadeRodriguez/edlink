@@ -16,7 +16,7 @@ var firebaseConfig = {
   //authentication
 
 //signing up users
-$("#signupuser").submit(function(e) {
+$("#signupuser").click(function(e) {
   e.preventDefault();
   //save email and password inputs
       emailInput = document.getElementById("newEmailInput").value;
@@ -25,11 +25,14 @@ $("#signupuser").submit(function(e) {
       console.log(passwordInput);
       //run signup
     signUp();
-    //sendEmailVerification();
+    document.getElementById("firstName").value= " ";
+    document.getElementById("lastName").value = " ";
+    document.getElementById("newEmailInput").value = " ";
+    document.getElementById("newPassInput").value = " ";
 })
 
 //logging in users
-$("#loginuser").submit(function(e) {
+$("#loginuser").click(function(e) {
   e.preventDefault();
 //save email and password inputs
   email = document.getElementById("email_input").value;
@@ -37,14 +40,21 @@ $("#loginuser").submit(function(e) {
   password = document.getElementById("pass_input").value;
   console.log(password);
   login();
-
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        uid = user.uid
+        console.log(uid);
+      } else {
+        // No user is signed in.
+      }
+    });
 })
 
 //sign up users
 function signUp() {
   console.log('signup working');
 
-  //handle verification requirements 
+  //handle verification requirements
   if (passwordInput.length < 6) {
     alert("Password length must be at least 6 characters.");
     return;
@@ -66,7 +76,7 @@ function signUp() {
     errorCode = error.code;
     errorMessage = error.message;
     console.log(errorCode);
-    //handle error message changes 
+    //handle error message changes
     switch (errorCode) {
       case "auth/email-already-in-use":
         alert("The email is already in use. Please sign in with your password.");

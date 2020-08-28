@@ -53,6 +53,14 @@ var firebaseConfig = {
       document.getElementById('designPart').style.display='block';
   }
 
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      uid = user.uid
+      console.log(uid);
+    } else {
+      // No user is signed in.
+    }
+  });
 
 // code to change picture
 var chooseImage = document.getElementById('chooseImage');
@@ -88,8 +96,19 @@ function handleFiles() {
   }
 }
 
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+     uid = user.uid
+  } else {
+    // No user is signed in.
+  }
+});
+
+
+var userId = firebase.auth().currentUser.getToken();
+console.log(userId);
+
 $('#removeImage').click(function(e){
-  var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
   // referencing data location
     var storage = firebase.storage();
     var storageRef = storage.ref();

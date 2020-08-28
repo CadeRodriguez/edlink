@@ -7,10 +7,10 @@
 
     <link rel="icon" href="images/edlink-link.png" type="image/png">
     <title>Sign Up</title>
-      
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-      
+
      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="login-signup.css" type=text/css>
@@ -18,7 +18,7 @@
   <body>
 
      <div style="font-family: 'Montserrat', serif;"class="banner" style="position: fixed; z-index: 999;">
-        <img class="logo" src="public.png" onclick="window.location.href='landingpg.html';"> 
+        <img class="logo" src="public.png" onclick="window.location.href='landingpg.html';">
         <a class="f" href="https://www.google.com/slides/about/" target="_blank"> About </a>
 
         <a class="c" href="https://parthean.com" target="_blank"> Community </a>
@@ -30,7 +30,7 @@
         <button type="button" id="r" onclick="window.location.href='Ed-Link_Parthean_Signup.html';" style="margin-top: 10px; margin-bottom: 10px;"><h1 style="font-size: 15px; margin: 5px;"> Register</h1></button> <!--cade fix until find better solution-->
      </div>
 
-    
+
       <div class="container text-center login-c">
          <h1 id="signup-greet" style="margin-top: -6%;">Ready to design your own page?</h1> <!-- cade brought greeting up to match banner -->
          <div class="row content" style="margin-top: -4%;">
@@ -45,10 +45,10 @@
                     <br>
                     <div class="row" id="name">
                         <div class="col-12 col-sm-6" id="first">
-                            <input class="name-field" type="text" placeholder="First Name">
+                            <input class="name-field" type="text" placeholder="First Name" id="firstName">
                         </div>
                         <div class="col-12 col-sm-6" id="last">
-                            <input class="name-field" type="text" placeholder="Last Name">
+                            <input class="name-field" type="text" placeholder="Last Name" id="lastName">
                         </div>
                     </div>
                     <br>
@@ -58,7 +58,7 @@
                     <div class="row button-row">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-8">
-                            <button type="submit">Register</button><br>
+                            <button id="signupuser" type="submit">Register</button><br>
                         </div>
                         <div class="col-sm-2"></div>
                     </div>
@@ -79,5 +79,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- firebase -->
+				<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+				<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
+				<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+				<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+				<script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-storage.js"></script>
+    <script src="signup.js"></script>
   </body>
 </html>
