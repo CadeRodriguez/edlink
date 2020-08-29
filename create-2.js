@@ -219,7 +219,7 @@ $('.add-to-page-btn').click(function(e) {
     var inp1 = document.getElementById('custom-input-1').value;
     var inp2 = document.getElementById('custom-input-2').value;
     console.log('linear-gradient(#'+inp1+', #'+inp2+');');
-    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#'+inp1+', #'+inp2+');';
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#'+inp1+', #'+inp2+')';
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
          userId = user.uid
@@ -234,7 +234,7 @@ $('.add-to-page-btn').click(function(e) {
 
   $('#yellow-pink-theme').click(function(e) {
     e.preventDefault(); //keeps page from refreshing
-    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#F8EF20, #FF30AC);';
+    document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#F8EF20, #FF30AC)';
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
          userId = user.uid
