@@ -53,6 +53,16 @@ var firebaseConfig = {
       document.getElementById('designPart').style.display='block';
   }
 
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    userId = user.uid
+  document.getElementById("pageLink").innerHTML = "https://edlink.parthean.com/" + userId;
+  } else {
+    // No user is signed in.
+  }
+});
+
+
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       uid = user.uid
@@ -76,12 +86,11 @@ function handleFiles() {
     for (let i = 0; i < this.files.length; i++) {
     var profileImage = document.getElementById("profileImage");
     profileImage.src = URL.createObjectURL(this.files[i]);
-    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
   }
   previewImage.src = profileImage.src;
   console.log(profileImage.src);
 // uploading to storage
-// Get a reference to the storage service, which is used to create references in your storage bucket
+// storage ref
     var storage = firebase.storage();
   // Create a storage reference from our storage service
     var storageRef = storage.ref();
@@ -92,7 +101,14 @@ function handleFiles() {
       contentType: 'image/jpeg'
     };
   // upload image with metadata
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+       userId = user.uid
     var uploadTask = storageRef.child('userImages/' + userId).put(file, metadata);
+  } else {
+    //no user is signed in
+  }
+  });
   }
 }
 
@@ -105,14 +121,14 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 
-var userId = firebase.auth().currentUser.getToken();
-console.log(userId);
-
 $('#removeImage').click(function(e){
   // referencing data location
     var storage = firebase.storage();
     var storageRef = storage.ref();
   // downloading image url from storageRef
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+       userId = user.uid
     storageRef.child('userImages/' + userId).delete().then(function() {
       // File deleted successfully
   }).catch(function(error) {
@@ -120,6 +136,10 @@ $('#removeImage').click(function(e){
   });
   profileImage.src = "images/filler-pfp.png"
   previewImage.src = profileImage.src;
+  } else {
+    // no user is signed in
+    }
+  });
 })
 
 
@@ -175,7 +195,9 @@ $('.add-to-page-btn').click(function(e) {
 
     // remove card when clicked
   x.addEventListener("click", function() {
-    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+         userId = user.uid
 
     db.collection("users").doc(userId).collection("page").get()
         var post_card_id = userId;
@@ -184,6 +206,10 @@ $('.add-to-page-btn').click(function(e) {
         document.getElementById(post_card_id).remove();
         x.remove();
         db.collection("users").doc(userId).collection("page").doc(post_text).delete();
+      } else {
+        // no user is signed in
+        }
+      });
   })
 }
 
@@ -194,40 +220,74 @@ $('.add-to-page-btn').click(function(e) {
     var inp2 = document.getElementById('custom-input-2').value;
     console.log('linear-gradient(#'+inp1+', #'+inp2+');');
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#'+inp1+', #'+inp2+');';
-    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+         userId = user.uid
     doc = db.collection("users").doc(userId).set({
           gradient: 'linear-gradient(#'+inp1+', #'+inp2+')'
+        });
+    } else {
+      // no user is signed in
+      }
     });
   });
+
   $('#yellow-pink-theme').click(function(e) {
     e.preventDefault(); //keeps page from refreshing
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#F8EF20, #FF30AC);';
-    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+         userId = user.uid
     doc = db.collection("users").doc(userId).set({
           gradient: "linear-gradient(#F8EF20, #FF30AC)"
     });
+    } else {
+      // no user is signed in
+      }
+    });
   });
+
   $('#lightblue-blue-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#4BFFD4, #3787FF)';
-    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+         userId = user.uid
     doc = db.collection("users").doc(userId).set({
           gradient: "linear-gradient(#F8EF20, #3787FF)"
     });
+  } else {
+    // no user is signed in
+    }
   });
+  });
+
   $('#pink-purple-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#FF96CE, #933FFF)';
-    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+         userId = user.uid
     doc = db.collection("users").doc(userId).set({
           gradient: "linear-gradient(#F8EF20, #933FFF)"
     });
+  } else {
+    // no user is signed in
+    }
   });
+  });
+
   $('#yellow-green-theme').click(function(e) {
     document.getElementById('phone-preview').style.backgroundImage = 'linear-gradient(#F8EF20, #5FFE78)';
-    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+       userId = user.uid
     doc = db.collection("users").doc(userId).set({
           gradient: "linear-gradient(#F8EF20, #5FFE78)"
     });
+  } else {
+    // no user is signed in
+    }
   });
+});
 
   /*const draggables = document.querySelectorAll('.draggable')
   const containers = document.querySelectorAll('#links-container')
@@ -273,7 +333,9 @@ $('.add-to-page-btn').click(function(e) {
   // saveItemToDatabase function
 function saveWebElements(post_text,hyperlink) {
     // saving the inputted information in new documents (should be titled after userId)
-    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+       userId = user.uid
       doc = db.collection("users").doc(userId).collection("page").doc(post_text).set ({
           title: post_text,
           link: hyperlink,
@@ -284,11 +346,17 @@ function saveWebElements(post_text,hyperlink) {
   .catch(function(error) {
       console.error("Error adding document: ", error);
   });
+} else {
+  // no user is signed in
+  }
+});
 }
 
 // function to load the user's webpage
   function loadPage(){
-    var userId = "tNelH5tZvedOWMJM16Jd8GLQj493";
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+       userId = user.uid
     db.collection("users").doc(userId).collection("page").get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         // setting doc data for link as hyperlink
@@ -315,6 +383,10 @@ function saveWebElements(post_text,hyperlink) {
       console.log(gradientPeter);
       document.getElementById('phone-preview').style.backgroundImage = doc.data().gradient;
     });
+  } else {
+    // no user is signed in
+    }
+  });
 }
 
 // calling the function above when the page comes back

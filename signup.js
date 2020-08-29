@@ -23,12 +23,14 @@ $("#signupuser").click(function(e) {
       console.log(emailInput);
       passwordInput = document.getElementById("newPassInput").value;
       console.log(passwordInput);
+      first = document.getElementById('first').value;
+      last = document.getElementById('last').value;
       //run signup
     signUp();
-    document.getElementById("firstName").value= " ";
-    document.getElementById("lastName").value = " ";
-    document.getElementById("newEmailInput").value = " ";
-    document.getElementById("newPassInput").value = " ";
+    document.getElementById("firstName").value= 'First name';
+    document.getElementById("lastName").value = 'Last name';
+    document.getElementById("newEmailInput").value = 'Email address';
+    document.getElementById("newPassInput").value = 'Create password';
 })
 
 //logging in users
@@ -61,12 +63,11 @@ function signUp() {
   }
 
   //create a new user
-  firebase.auth().createUserWithEmailAndPassword(emailInput,passwordInput)
-  .then(function(event) {
+  firebase.auth().createUserWithEmailAndPassword(emailInput,passwordInput).then(cred => {
     //add user to database
-      db.collection("users").doc().set({
-      email: emailInput
-    })
+      return db.collection("users").doc(cred.user.uid).set({
+      email: emailInput,
+    });
       //REDIRECT LINK
       console.log('added to database');
       sendEmailVerification();
